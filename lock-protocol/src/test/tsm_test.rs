@@ -10,9 +10,10 @@ pub struct B {
     pub flag: bool,
 }
 
-#[derive(Clone, Copy)]
+// #[derive(Clone, Copy)]
 pub struct A {
-    pub bs: [B; ENTRIES],
+    // pub bs: [B; ENTRIES],
+    pub bs: Seq<B>,
 }
 
 tokenized_state_machine!{
@@ -26,9 +27,10 @@ X {
     init!{
         initialize() {
             init a = Map::empty().insert(0, A {
-                bs: [B {
-                    flag: true,
-                }; ENTRIES],
+                // bs: [B {
+                //     flag: true,
+                // }; ENTRIES],
+                bs: Seq::empty(),
             });
         }
     }
@@ -43,6 +45,9 @@ X {
                 bs: {
                     let mut bs = pre.a[key].bs;
                     // bs[index].flag = value;
+                    bs.insert(index, B {
+                        flag: value,
+                    });
                     bs
                 },
             });
